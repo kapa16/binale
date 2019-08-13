@@ -1,0 +1,331 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,900');
+$color-blue: #1890ff;
+$color-social: #80d6ff;
+$color-sand: #f1eee8;
+$text-grey: dimgrey;
+
+%button {
+  border: 1px solid lightgray;
+  padding: 8px;
+  font-size: 13px;
+  font-weight: 400;
+  color: $text-grey;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+}
+.wrapper {
+  width: 1300px;
+  margin: 0 auto;
+}
+body {
+  font-family: 'Comfortaa', cursive;
+  background-color: #fff;
+}
+a {
+  text-decoration: none;
+}
+li {
+  list-style-type: none;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+
+.header {
+  width: 100%;
+  display: flex;
+  //background-image: url("img/header1.jpg");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  //height: 350px;
+  &__logo {
+    margin-top: 60px;
+    margin-left: 60px;
+  }
+}
+.logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.logo_img {
+  width: 50px;
+  height: 50px;
+  color: $text-grey;
+  transition: all .4s;
+}
+.logo_img:hover {
+  transform: scale(1.1);
+}
+.binale {
+  font-size: 30px;
+  font-weight: 400;
+  color: $text-grey;
+}
+.binale_blau {
+  color: $color-blue;
+}
+h1 {
+  font-size: 36px;
+  color: $text-grey;
+  line-height: 50px;
+  margin-top: 120px;
+  margin-bottom: auto;
+}
+
+// Кнопки
+
+.btn-login {
+  background-color: $color-sand;
+  color: $text-grey;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.38px;
+  padding: 13px 19px;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 1s;
+}
+.btn-login:hover {
+  background-color: $color-social;
+}
+.btn-login:active {
+  background-color: white;
+  color: $color-social;
+}
+.btn_form {
+  margin-right: 20px;
+  margin-top: 20px;
+  align-self: flex-end;
+}
+
+.btn_in_form {
+}
+// Меню
+
+.menu {
+  height: 80px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.menu_nav {
+  color: $color-sand;
+  font-weight: 700;
+  margin-left: 20px;
+  padding-bottom: 3px;
+}
+.menu_nav:hover {
+  border-bottom: 2px solid $color-sand;
+}
+.menu_nav:active {
+  border-bottom: 2px solid $text-grey;
+  color: $text-grey;
+}
+h4 {
+  color: $text-grey;
+}
+
+
+// Форма
+
+.article {
+  margin-bottom: 30px;
+}
+input {
+  line-height: 20px;
+  padding-left: 7px;
+  padding-right: 7px;
+  font-size: 15px;
+}
+input:focus {
+  background: #e4f5ff;
+}
+
+.input {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 25px;
+}
+.input_text {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+.input_before_btn {
+  margin-top: 25px;
+}
+.label {
+  margin-bottom: 10px;
+}
+.fieldset {
+  margin-top: 20px;
+  margin-right: 20px;
+  padding: 20px;
+  width: 340px;
+  border: 1px solid $color-blue;
+  border-radius: 3px;
+  &__innen {
+    padding: 15px;
+    border: 1px solid #9E9E9E;
+    border-radius: 3px;
+    margin-bottom: 20px;
+  }
+}
+.legend {
+  color: $color-blue;
+  &__innen {
+    color: $text-grey;
+  }
+}
+
+// Lieferant anlegen
+
+.lieferant-anlegen {
+  margin-top: 30px;
+}
+.label_lief {
+  margin: 5px 10px 5px 0;
+
+}
+.lief_abs {
+  margin-left: 10px;
+}
+.input_width {
+  width: 170px;
+  padding: 3px 7px;
+  &__str {
+    width: 140px;
+  }
+  &__no {
+    width: 53px;
+  }
+}
+#textarea, input {
+  font-family: 'Comfortaa', cursive;
+  font-size: 15px;
+}
+
+
+// Checkbox yes/no
+
+// USt List
+option {
+  color: black;
+}
+// Продукты на главной
+
+.products {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.products_main {
+  display: flex;
+  justify-content: space-between;
+}
+.prod {
+  height: 100%;
+  padding: 10px;
+  font-size: 20px;
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.form_product {
+  display: flex;
+  flex-flow: row wrap;
+  margin-bottom: 100px;
+}
+.prod_top {
+  font-size: 28px;
+  margin-bottom: 10px;
+  margin-top: 25px;
+  color: $text-grey;
+}
+.prod_a {
+  color: darkblue;
+}
+.prod_p {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+li {
+  margin: 5px;
+}
+.more {
+  color: darkblue;
+  padding-top: 20px;
+}
+
+// tab menu
+
+.tab_menu {
+  padding : 20px;
+  cursor: pointer;
+  display: grid;
+  grid-template: 100% /1fr 2.2fr;
+}
+.tab_name {
+  font-size: 30px;
+  color: $text-grey;
+  width: 70px;
+}
+.tab {
+  display: grid;
+  grid-template: 1fr 1fr 1fr/ 1fr 1fr;
+  grid-gap: 40px;
+}
+.tab_el {
+}
+
+.icon {
+  width: 50px;
+  height:50px;
+  margin-bottom: -4px;
+}
+// Футер
+
+.footer_grey {
+  background-color: #e6e6e6;
+  height: 79px;
+  margin-top: 40px;
+  display: flex;
+}
+.footer_box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+.social {
+  display: flex;
+}
+.social_f {
+  width: 26px;
+  height: 26px;
+  background-color: #ffffff;
+  border: 1px solid  #ffffff;
+  border-radius: 50%;
+  margin-right: 8px;
+  padding: 5px;
+  font-size: 20px;
+  color: $text-grey;
+  text-align: center;
+}
+.social_f:hover {
+  background-color: $color-social;
+  border: 1px solid $color-social;
+}
+.social_f:active {
+  background-color: #eeeeee;
+  border: 1px solid #eeeeee;
+  color: $color-social;
+}
