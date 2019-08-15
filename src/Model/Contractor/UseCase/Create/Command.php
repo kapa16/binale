@@ -18,9 +18,10 @@ class Command
     public $name1;
 
     /**
-     * @Assert\Length(60)
+     * @Assert\Length(
      *     min="2",
      *     max="60"
+     * )
      */
     public $name2;
 }

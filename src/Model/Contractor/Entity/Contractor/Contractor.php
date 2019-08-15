@@ -29,4 +29,19 @@ class Contractor
      * @ORM\Column(type="string", name="name_two", length=60, nullable=true)
      */
     private $name2;
+
+    /**
+     * Contractor constructor.
+     * @param $id
+     * @param string $name1
+     * @param string|null $name2
+     */
+    public function __construct(Id $id, string $name1, ?string $name2)
+    {
+        $this->id = $id;
+        $this->name1 = $name1;
+        $this->name2 = $name2;
+    }
+
+
 }

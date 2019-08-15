@@ -5,7 +5,8 @@
 
         <div class="wrapper lieferant-anlegen">
             <h3 class="article">Lieferant</h3>
-            <form class="form_product" action="">
+            {{ form_start(form, {'attr' : {'class' : 'form_product'}}) }}
+{#            <form class="form_product" action="">#}
                 <fieldset class="fieldset">
                     <legend class="legend">&nbsp Allgemeines &nbsp</legend>
                     <div class="input">
@@ -13,9 +14,10 @@
                         <input class="input_width" type="text">
                     </div>
                     <div class="input">
-                        <span class="label_lief">Name 1</span>
-                        <input class="input_width" type="text">
+                        {{ form_label(form.name1, 'Name 1', {'label_attr' : {'class' : 'label_lief'}}) }}
+                        {{ form_widget(form.name1, {'attr' : {'class' : 'input_width'}}) }}
                     </div>
+                    {{ form_errors(form.name1, {'attr' : {'class' : 'error_message'}}) }}
                     <div class="input">
                         <span class="label_lief">Name 2</span>
                         <input class="input_width" type="text">
@@ -149,9 +151,11 @@
                 <fieldset class="fieldset">
                     <legend class="legend">&nbsp Log &nbsp</legend>
                 </fieldset>
-                <a href="#" class="btn-login btn_form">Speichern</a>
+                <button type="submit" class="btn-login btn_form">Speichern</button>
+{#                <a href="#" class="btn-login btn_form">Speichern</a>#}
                 <a href="#" class="btn-login btn_form">Abbrechen</a>
-            </form>
+            {{ form_end(form) }}
+{#            </form>#}
         </div>
     </div>
 
