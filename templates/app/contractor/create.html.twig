@@ -1,0 +1,158 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="app">
+
+        <div class="wrapper lieferant-anlegen">
+            <h3 class="article">Lieferant</h3>
+            <form class="form_product" action="">
+                <fieldset class="fieldset">
+                    <legend class="legend">&nbsp Allgemeines &nbsp</legend>
+                    <div class="input">
+                        <span class="label_lief">Lieferanten Nr.</span>
+                        <input class="input_width" type="text">
+                    </div>
+                    <div class="input">
+                        <span class="label_lief">Name 1</span>
+                        <input class="input_width" type="text">
+                    </div>
+                    <div class="input">
+                        <span class="label_lief">Name 2</span>
+                        <input class="input_width" type="text">
+                    </div>
+                    <div class="input">
+                        <span class="label_lief">Kreditor Nr.</span>
+                        <input class="input_width" type="text">
+                    </div>
+                    <div class="input">
+                        <span class="label_lief">Kreditor Name</span>
+                        <input class="input_width" type="text">
+                    </div>
+                    <div class="input">
+                        <span class="label_lief">Straße</span>
+                        <input class="input_width__str" type="text">
+                        <span class="label_lief lief_abs">Nr.</span>
+                        <input class="input_width__no" type="text">
+                    </div>
+                    <div class="input">
+                        <span class="label_lief ">PLZ</span>
+                        <input class="input_width__no" type="text">
+                        <span class="label_lief lief_abs">Stadt</span>
+                        <input class="input_width__str" type="text">
+                    </div>
+                    <div class="input">
+                        <span class="label_lief">Land</span>
+                        <input type="text">
+                    </div>
+                </fieldset>
+                <fieldset class="fieldset">
+                    <legend class="legend">&nbsp Kommunikation &nbsp</legend>
+                    <div class="input">
+                        <span class="label_lief">Anrede</span>
+                        <input type="text">
+                    </div>
+                    <div class="input">
+                        <span class="label_lief">Vorname</span>
+                        <input type="text">
+                    </div>
+                    <div class="input">
+                        <span class="label_lief">Name</span>
+                        <input type="text">
+                    </div>
+                    <div class="input">
+                        <span class="label_lief">Position</span>
+                        <input type="text">
+                    </div>
+                    <div class="input">
+                        <span class="label_lief">Telefon</span>
+                        <input type="text">
+                    </div>
+                    <div class="input">
+                        <span class="label_lief">e-mail</span>
+                        <input type="text">
+                    </div>
+                    <a href="#" class="btn-login btn_in_form">Ansprechpartner hinzufügen</a>
+                    <div class="input input_before_btn">
+                        <span class="label_lief">Kunden Nr.</span>
+                        <input type="text">
+                    </div>
+                    <div class="input">
+                        <span class="label_lief">Web-Seite</span>
+                        <input type="text">
+                    </div>
+                </fieldset>
+                <fieldset class="fieldset">
+                    <legend class="legend">&nbsp Ansprechpartner &nbsp</legend>
+
+                </fieldset>
+                <fieldset class="fieldset">
+                    <legend class="legend">&nbsp Information &nbsp</legend>
+                    <div class="input">
+                        <span class="label_lief">USt-Id</span>
+                        <ustid ref="ustid"></ustid>
+                        <input class="input_width" type="text" placeholder="Nummer">
+                    </div>
+                    <div class="input">
+                        <span class="label_lief">Steuernummer</span>
+                        <input type="text">
+                    </div>
+                    <div class="input">
+                        <span class="label_lief">EORI</span>
+                        <input type="text">
+                    </div>
+                    <div class="input">
+                        <span class="label_lief">Register</span>
+                        <input class="input_width__no" type="text" placeholder="HRB/HRA">
+                        <input class="input_width" type="text" placeholder="Nummer">
+                    </div>
+                </fieldset>
+                <fieldset class="fieldset">
+                    <legend class="legend">&nbsp Kontoverbindung &nbsp</legend>
+                    <div class="input">
+                        <span class="label_lief">Kontoinhaber</span>
+                        <input type="text">
+                    </div>
+                    <div class="input">
+                        <span class="label_lief">Bank</span>
+                        <input type="text">
+                    </div>
+                    <div class="input">
+                        <span class="label_lief">IBAN</span>
+                        <input type="text">
+                    </div>
+                    <div class="input">
+                        <span class="label_lief">BIC</span>
+                        <input type="text">
+                    </div>
+                </fieldset>
+                <fieldset class="fieldset">
+                    <legend class="legend">&nbsp Zalungsbedingungen &nbsp</legend>
+                    <div class="input">
+                        <span class="label_lief">Fälligkeit</span>
+                        <input type="text" class="input_width__no" placeholder="Tage">
+                    </div>
+                    <div class="input">
+                        <span class="label_lief">Skonto</span>
+                        <input type="text" class="input_width__no" placeholder="%">
+                        <input type="text" class="input_width__no" placeholder="Tage">
+                    </div>
+                    <div class="input">
+                        <span class="label_lief">Lastschrift</span>
+                        <input id="cb1" type="checkbox"/>
+                        <label for="cb1"></label>
+                    </div>
+                </fieldset>
+                <fieldset class="fieldset">
+                    <legend class="legend">&nbsp Notiz &nbsp</legend>
+                    <textarea name="" id="textarea" cols="30" rows="5"></textarea>
+                </fieldset>
+                <fieldset class="fieldset">
+                    <legend class="legend">&nbsp Log &nbsp</legend>
+                </fieldset>
+                <a href="#" class="btn-login btn_form">Speichern</a>
+                <a href="#" class="btn-login btn_form">Abbrechen</a>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}

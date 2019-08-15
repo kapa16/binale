@@ -1,0 +1,29 @@
+@import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400,700');
+@import url('https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,900');
+@import "variables";
+@import "~bootstrap/scss/bootstrap";
+@import "header";
+@import "form";
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Comfortaa', cursive;
+  background-color: #fff;
+}
+
+main > .container {
+  padding: 10px 15px 0;
+}
+
+.footer {
+  background-color: #f5f5f5;
+
+  & > .container {
+    padding-right: 15px;
+    padding-left: 15px;
+  }
+}

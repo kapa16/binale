@@ -1,4 +1,6 @@
-const app = new Vue({
+import Vue from "vue";
+
+new Vue({
     el: '#app',
     data: {
 

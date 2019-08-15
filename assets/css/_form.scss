@@ -1,9 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Comfortaa:300,400,700');
-@import url('https://fonts.googleapis.com/css?family=Lato:300,400,400i,700,900');
-$color-blue: #1890ff;
-$color-social: #80d6ff;
-$color-sand: #f1eee8;
-$text-grey: dimgrey;
+
 
 %button {
   border: 1px solid lightgray;
@@ -15,52 +10,9 @@ $text-grey: dimgrey;
   align-items: center;
   margin-bottom: 10px;
 }
-.wrapper {
-  width: 1300px;
-  margin: 0 auto;
-}
-body {
-  font-family: 'Comfortaa', cursive;
-  background-color: #fff;
-}
-a {
-  text-decoration: none;
-}
-li {
-  list-style-type: none;
-}
-* {
-  margin: 0;
-  padding: 0;
-}
 
-.header {
-  width: 100%;
-  display: flex;
-  //background-image: url("img/header1.jpg");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
-  //height: 350px;
-  &__logo {
-    margin-top: 60px;
-    margin-left: 60px;
-  }
-}
-.logo {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.logo_img {
-  width: 50px;
-  height: 50px;
-  color: $text-grey;
-  transition: all .4s;
-}
-.logo_img:hover {
-  transform: scale(1.1);
-}
+
+
 .binale {
   font-size: 30px;
   font-weight: 400;
@@ -171,6 +123,7 @@ input:focus {
   width: 340px;
   border: 1px solid $color-blue;
   border-radius: 3px;
+  box-sizing: content-box;
   &__innen {
     padding: 15px;
     border: 1px solid #9E9E9E;
