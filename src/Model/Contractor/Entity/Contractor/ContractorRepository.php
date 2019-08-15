@@ -19,4 +19,13 @@ class ContractorRepository
         $this->em = $em;
         $this->repo = $em->getRepository(Contractor::class);
     }
+
+    public function findByFullName(string $name1, string $name2): ?Contractor
+    {
+        return $this->repo->findOneBy([
+            'name1' => $name1,
+            'name2' => $name2,
+        ]);
+    }
+
 }
