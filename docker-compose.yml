@@ -1,0 +1,95 @@
+version: '3'
+services:
+    binale-nginx:
+        build:
+            context: ./docker/development
+            dockerfile: nginx.docker
+        volumes:
+            - ./:/app
+        depends_on:
+            - binale-php-fpm
+        ports:
+            - "8080:80"
+    binale-php-fpm:
+        build:
+            context: ./docker/development
+            dockerfile: php-fpm.docker
+        volumes:
+            - ./:/app
+        depends_on:
+            - binale-postgres
+            - binale-redis
+            - binale-queue-redis
+            - mailer
+    binale-php-cli:
+        build:
+            context: ./docker/development
+            dockerfile: php-cli.docker
+        volumes:
+            - ./:/app
+            - composer:/root/.composer/cache
+        depends_on:
+            - binale-postgres
+            - binale-redis
+            - binale-queue-redis
+            - mailer
+    binale-queue-worker:
+        build:
+            context: ./docker/development
+            dockerfile: php-cli.docker
+        volumes:
+            - ./:/app
+            - composer:/root/.composer/cache
+        depends_on:
+            - binale-postgres
+            - binale-redis
+            - binale-queue-redis
+            - mailer
+        command: sh -c "until [ -f .ready ] ; do sleep 1 ; done && php bin/console messenger:consume async -vv"
+    binale-node-watch:
+        image: node:11.13-alpine
+        volumes:
+            - ./:/app
+        working_dir: /app
+        command: sh -c "until [ -f .ready ] ; do sleep 1 ; done && npm run watch"
+    binale-node:
+        image: node:11.13-alpine
+        volumes:
+            - ./:/app
+        working_dir: /app
+    binale-postgres:
+        image: postgres:11.2-alpine
+        volumes:
+            - binale-postgres:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: app
+            POSTGRES_PASSWORD: secret
+            POSTGRES_DB: app
+        ports:
+            - "54321:5432"
+    binale-redis:
+        image: redis:5.0-alpine
+        volumes:
+            - binale-redis:/data
+        command:
+            - 'redis-server'
+            - '--databases 2'
+            - '--save 900 1'
+            - '--save 300 10'
+            - '--save 60 10000'
+            - '--requirepass secret'
+    binale-queue-redis:
+        image: redis:5.0-alpine
+        volumes:
+            - binale-queue-redis:/data
+
+    mailer:
+        image: mailhog/mailhog
+        ports:
+            - "8082:8025"
+
+volumes:
+    binale-postgres:
+    binale-redis:
+    binale-queue-redis:
+    composer:

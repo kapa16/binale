@@ -1,0 +1,113 @@
+version: '3'
+services:
+    binale-nginx:
+        image: ${REGISTRY_ADDRESS}/binale-nginx:${IMAGE_TAG}
+        restart: always
+        depends_on:
+            - binale-php-fpm
+        ports:
+            - "80:80"
+    binale-php-fpm:
+        image: ${REGISTRY_ADDRESS}/binale-php-fpm:${IMAGE_TAG}
+        restart: always
+        environment:
+            APP_SECRET: ${BINALE_APP_SECRET}
+            DATABASE_URL: pgsql://app:${BINALE_DB_PASSWORD}@binale-postgres:5432/app
+            REDIS_HOST: binale-redis
+            REDIS_PASSWORD: ${BINALE_REDIS_PASSWORD}
+            MAILER_URL: ${BINALE_MAILER_URL}
+            OAUTH_FACEBOOK_SECRET: ${BINALE_OAUTH_FACEBOOK_SECRET}
+            STORAGE_BASE_URL: ${STORAGE_BASE_URL}
+            STORAGE_FTP_HOST: ${STORAGE_FTP_HOST}
+            STORAGE_FTP_USERNAME: ${STORAGE_FTP_USERNAME}
+            STORAGE_FTP_PASSWORD: ${STORAGE_FTP_PASSWORD}
+            MESSENGER_TRANSPORT_DSN: redis://binale-redis:6379/messages?password=${BINALE_REDIS_PASSWORD}
+            CENTRIFUGO_WS_HOST: ${CENTRIFUGO_WS_HOST}
+            CENTRIFUGO_API_HOST: http://centrifugo:8000
+            CENTRIFUGO_API_KEY: ${CENTRIFUGO_API_KEY}
+            CENTRIFUGO_SECRET: ${CENTRIFUGO_SECRET}
+            OAUTH_ENCRYPTION_KEY: ${OAUTH_ENCRYPTION_KEY}
+        depends_on:
+            - binale-postgres
+            - binale-redis
+            - binale-queue-redis
+            - centrifugo
+    binale-php-cli:
+        image: ${REGISTRY_ADDRESS}/binale-php-cli:${IMAGE_TAG}
+        environment:
+            APP_SECRET: ${BINALE_APP_SECRET}
+            DATABASE_URL: pgsql://app:${BINALE_DB_PASSWORD}@binale-postgres:5432/app
+            REDIS_HOST: binale-redis
+            REDIS_PASSWORD: ${BINALE_REDIS_PASSWORD}
+            MAILER_URL: ${BINALE_MAILER_URL}
+            OAUTH_FACEBOOK_SECRET: ${BINALE_OAUTH_FACEBOOK_SECRET}
+            STORAGE_BASE_URL: ${STORAGE_BASE_URL}
+            STORAGE_FTP_HOST: ${STORAGE_FTP_HOST}
+            STORAGE_FTP_USERNAME: ${STORAGE_FTP_USERNAME}
+            STORAGE_FTP_PASSWORD: ${STORAGE_FTP_PASSWORD}
+            MESSENGER_TRANSPORT_DSN: redis://binale-queue-redis:6379/messages
+            CENTRIFUGO_WS_HOST: ${CENTRIFUGO_WS_HOST}
+            CENTRIFUGO_API_HOST: http://centrifugo:8000
+            CENTRIFUGO_API_KEY: ${CENTRIFUGO_API_KEY}
+            CENTRIFUGO_SECRET: ${CENTRIFUGO_SECRET}
+            OAUTH_ENCRYPTION_KEY: ${OAUTH_ENCRYPTION_KEY}
+        depends_on:
+            - binale-postgres
+            - binale-redis
+            - binale-queue-redis
+            - centrifugo
+    binale-queue-worker:
+        image: ${REGISTRY_ADDRESS}/binale-php-cli:${IMAGE_TAG}
+        environment:
+            APP_SECRET: ${BINALE_APP_SECRET}
+            DATABASE_URL: pgsql://app:${BINALE_DB_PASSWORD}@binale-postgres:5432/app
+            REDIS_HOST: binale-redis
+            REDIS_PASSWORD: ${BINALE_REDIS_PASSWORD}
+            MAILER_URL: ${BINALE_MAILER_URL}
+            OAUTH_FACEBOOK_SECRET: ${BINALE_OAUTH_FACEBOOK_SECRET}
+            STORAGE_BASE_URL: ${STORAGE_BASE_URL}
+            STORAGE_FTP_HOST: ${STORAGE_FTP_HOST}
+            STORAGE_FTP_USERNAME: ${STORAGE_FTP_USERNAME}
+            STORAGE_FTP_PASSWORD: ${STORAGE_FTP_PASSWORD}
+            MESSENGER_TRANSPORT_DSN: redis://binale-queue-redis:6379/messages
+            CENTRIFUGO_WS_HOST: ${CENTRIFUGO_WS_HOST}
+            CENTRIFUGO_API_HOST: http://centrifugo:8000
+            CENTRIFUGO_API_KEY: ${CENTRIFUGO_API_KEY}
+            CENTRIFUGO_SECRET: ${CENTRIFUGO_SECRET}
+            OAUTH_ENCRYPTION_KEY: ${OAUTH_ENCRYPTION_KEY}
+        depends_on:
+            - binale-postgres
+            - binale-redis
+            - binale-queue-redis
+            - centrifugo
+        command: sh -c "sleep 30 && php bin/console messenger:consume async -vv"
+    binale-postgres:
+        image: ${REGISTRY_ADDRESS}/binale-postgres:${IMAGE_TAG}
+        restart: always
+        volumes:
+            - binale-postgres:/var/lib/postgresql/data
+        environment:
+            POSTGRES_USER: app
+            POSTGRES_PASSWORD: ${BINALE_DB_PASSWORD}
+            POSTGRES_DB: app
+    binale-redis:
+        image: redis:5.0-alpine
+        restart: always
+        volumes:
+            - binale-redis:/data
+        command:
+            - 'redis-server'
+            - '--databases 2'
+            - '--save 900 1'
+            - '--save 300 10'
+            - '--save 60 10000'
+            - '--requirepass ${BINALE_REDIS_PASSWORD}'
+    binale-queue-redis:
+        image: redis:5.0-alpine
+        volumes:
+            - binale-queue-redis:/data
+
+volumes:
+    binale-postgres:
+    binale-redis:
+    binale-queue-redis:

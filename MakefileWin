@@ -1,0 +1,89 @@
+up: docker-up
+down: docker-down
+restart: docker-down docker-up
+init: docker-down-clear binale-clear docker-pull docker-build docker-up binale-init
+test: binale-test
+test-unit: binale-test-unit
+
+docker-up:
+	docker-compose.exe up -d
+
+docker-down:
+	docker-compose.exe down --remove-orphans
+
+docker-down-clear:
+	docker-compose.exe down -v --remove-orphans
+
+docker-pull:
+	docker-compose.exe pull
+
+docker-build:
+	docker-compose.exe build
+
+binale-init: binale-composer-install binale-assets-install binale-oauth-keys binale-wait-db binale-migrations binale-fixtures binale-ready
+
+binale-clear:
+	docker.exe run --rm -v ${PWD}:/app --workdir=/app alpine rm -f .ready
+
+binale-composer-install:
+	docker-compose.exe run --rm binale-php-cli composer install
+
+binale-assets-install:
+	docker-compose.exe run --rm binale-node yarn install
+	docker-compose.exe run --rm binale-node npm rebuild node-sass
+
+binale-oauth-keys:
+	docker-compose.exe run --rm binale-php-cli mkdir -p var/oauth
+	docker-compose.exe run --rm binale-php-cli openssl genrsa -out var/oauth/private.key 2048
+	docker-compose.exe run --rm binale-php-cli openssl rsa -in var/oauth/private.key -pubout -out var/oauth/public.key
+	docker-compose.exe run --rm binale-php-cli chmod 644 var/oauth/private.key var/oauth/public.key
+
+binale-wait-db:
+	until docker-compose.exe exec -T binale-postgres pg_isready --timeout=0 --dbname=app ; do sleep 1 ; done
+
+binale-migrations:
+	docker-compose.exe run --rm binale-php-cli php bin/console doctrine:migrations:migrate --no-interaction
+
+binale-fixtures:
+	docker-compose.exe run --rm binale-php-cli php bin/console doctrine:fixtures:load --no-interaction
+
+binale-ready:
+	docker.exe run --rm -v ${PWD}:/app --workdir=/app alpine touch .ready
+
+binale-assets-dev:
+	docker-compose.exe run --rm binale-node npm run dev
+
+binale-test:
+	docker-compose.exe run --rm binale-php-cli php bin/phpunit
+
+binale-test-unit:
+	docker-compose.exe run --rm binale-php-cli php bin/phpunit --testsuite=unit
+
+build-production:
+	docker.exe build --pull --file=docker/production/nginx.docker --tag ${REGISTRY_ADDRESS}/binale-nginx:${IMAGE_TAG} manager
+	docker.exe build --pull --file=docker/production/php-fpm.docker --tag ${REGISTRY_ADDRESS}/binale-php-fpm:${IMAGE_TAG} manager
+	docker.exe build --pull --file=docker/production/php-cli.docker --tag ${REGISTRY_ADDRESS}/binale-php-cli:${IMAGE_TAG} manager
+	docker.exe build --pull --file=docker/production/postgres.docker --tag ${REGISTRY_ADDRESS}/binale-postgres:${IMAGE_TAG} manager
+	docker.exe build --pull --file=docker/production/redis.docker --tag ${REGISTRY_ADDRESS}/binale-redis:${IMAGE_TAG} manager
+
+push-production:
+	docker.exe push ${REGISTRY_ADDRESS}/binale-nginx:${IMAGE_TAG}
+	docker.exe push ${REGISTRY_ADDRESS}/binale-php-fpm:${IMAGE_TAG}
+	docker.exe push ${REGISTRY_ADDRESS}/binale-php-cli:${IMAGE_TAG}
+	docker.exe push ${REGISTRY_ADDRESS}/binale-postgres:${IMAGE_TAG}
+	docker.exe push ${REGISTRY_ADDRESS}/binale-redis:${IMAGE_TAG}
+
+deploy-production:
+	ssh -o StrictHostKeyChecking=no ${PRODUCTION_HOST} -p ${PRODUCTION_PORT} 'rm -rf docker-compose.exe.yml .env'
+	scp -o StrictHostKeyChecking=no -P ${PRODUCTION_PORT} docker-compose.exe-production.yml ${PRODUCTION_HOST}:docker-compose.exe.yml
+	ssh -o StrictHostKeyChecking=no ${PRODUCTION_HOST} -p ${PRODUCTION_PORT} 'echo "REGISTRY_ADDRESS=${REGISTRY_ADDRESS}" >> .env'
+	ssh -o StrictHostKeyChecking=no ${PRODUCTION_HOST} -p ${PRODUCTION_PORT} 'echo "IMAGE_TAG=${IMAGE_TAG}" >> .env'
+	ssh -o StrictHostKeyChecking=no ${PRODUCTION_HOST} -p ${PRODUCTION_PORT} 'echo "BINALE_APP_SECRET=${BINALE_APP_SECRET}" >> .env'
+	ssh -o StrictHostKeyChecking=no ${PRODUCTION_HOST} -p ${PRODUCTION_PORT} 'echo "BINALE_DB_PASSWORD=${BINALE_DB_PASSWORD}" >> .env'
+	ssh -o StrictHostKeyChecking=no ${PRODUCTION_HOST} -p ${PRODUCTION_PORT} 'echo "BINALE_REDIS_PASSWORD=${BINALE_REDIS_PASSWORD}" >> .env'
+	ssh -o StrictHostKeyChecking=no ${PRODUCTION_HOST} -p ${PRODUCTION_PORT} 'echo "BINALE_MAILER_URL=${BINALE_MAILER_URL}" >> .env'
+	ssh -o StrictHostKeyChecking=no ${PRODUCTION_HOST} -p ${PRODUCTION_PORT} 'echo "BINALE_OAUTH_FACEBOOK_SECRET=${BINALE_OAUTH_FACEBOOK_SECRET}" >> .env'
+	ssh -o StrictHostKeyChecking=no ${PRODUCTION_HOST} -p ${PRODUCTION_PORT} 'docker-compose.exe pull'
+	ssh -o StrictHostKeyChecking=no ${PRODUCTION_HOST} -p ${PRODUCTION_PORT} 'docker-compose.exe up --build -d'
+	ssh -o StrictHostKeyChecking=no ${PRODUCTION_HOST} -p ${PRODUCTION_PORT} 'until docker-compose.exe exec -T binale-postgres pg_isready --timeout=0 --dbname=app ; do sleep 1 ; done'
+	ssh -o StrictHostKeyChecking=no ${PRODUCTION_HOST} -p ${PRODUCTION_PORT} 'docker-compose.exe run --rm binale-php-cli php bin/console doctrine:migrations:migrate --no-interaction'
