@@ -15,7 +15,7 @@ class Command
      *     max="60"
      * )
      */
-    public $name1;
+    public $nameOne;
 
     /**
      * @Assert\Length(
@@ -23,5 +23,21 @@ class Command
      *     max="60"
      * )
      */
-    public $name2;
+    public $nameTwo;
+
+    /**
+     * @Assert\Length(
+     *     max="10"
+     * )
+     */
+    public $number;
+
+    /**
+     * @Assert\Length(
+    *     max="10"
+     * )
+     * @Assert\Positive()
+     */
+    public $creditorNumber;
+    
 }

@@ -1,5 +1,7 @@
 {% extends 'base.html.twig' %}
 
+{% form_theme form 'form/them/input_field_row.html.twig' %}
+
 {% block body %}
     <div id="app">
 
@@ -9,23 +11,12 @@
 {#            <form class="form_product" action="">#}
                 <fieldset class="fieldset">
                     <legend class="legend">&nbsp Allgemeines &nbsp</legend>
-                    <div class="input">
-                        <span class="label_lief">Lieferanten Nr.</span>
-                        <input class="input_width" type="text">
-                    </div>
-                    <div class="input">
-                        {{ form_label(form.name1, 'Name 1', {'label_attr' : {'class' : 'label_lief'}}) }}
-                        {{ form_widget(form.name1, {'attr' : {'class' : 'input_width'}}) }}
-                    </div>
-                    {{ form_errors(form.name1, {'attr' : {'class' : 'error_message'}}) }}
-                    <div class="input">
-                        <span class="label_lief">Name 2</span>
-                        <input class="input_width" type="text">
-                    </div>
-                    <div class="input">
-                        <span class="label_lief">Kreditor Nr.</span>
-                        <input class="input_width" type="text">
-                    </div>
+
+                    {{ form_row(form.number) }}
+                    {{ form_row(form.nameOne) }}
+                    {{ form_row(form.nameTwo) }}
+                    {{ form_row(form.creditorNumber) }}
+
                     <div class="input">
                         <span class="label_lief">Kreditor Name</span>
                         <input class="input_width" type="text">

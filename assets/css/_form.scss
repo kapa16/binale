@@ -1,5 +1,4 @@
 
-
 %button {
   border: 1px solid lightgray;
   padding: 8px;
@@ -11,8 +10,10 @@
   margin-bottom: 10px;
 }
 
-.error_message {
-  color: red;
+.form_product {
+  display: flex;
+  flex-flow: row wrap;
+  margin-bottom: 100px;
 }
 
 .binale {
@@ -23,75 +24,25 @@
 .binale_blau {
   color: $color-blue;
 }
-h1 {
-  font-size: 36px;
-  color: $text-grey;
-  line-height: 50px;
-  margin-top: 120px;
-  margin-bottom: auto;
+
+
+
+// Lieferant anlegen
+
+.lieferant-anlegen {
+  margin-top: 30px;
 }
 
-// Кнопки
 
-.btn-login {
-  background-color: $color-sand;
-  color: $text-grey;
+.lief_abs {
+  margin-left: 10px;
+}
+
+#textarea, input {
+  font-family: 'Comfortaa', cursive;
   font-size: 15px;
-  font-weight: 700;
-  letter-spacing: 0.38px;
-  padding: 13px 19px;
-  border: none;
-  border-radius: 5px;
-  transition: background-color 1s;
-}
-.btn-login:hover {
-  background-color: $color-social;
-}
-.btn-login:active {
-  background-color: white;
-  color: $color-social;
-}
-.btn_form {
-  margin-right: 20px;
-  margin-top: 20px;
-  align-self: flex-end;
 }
 
-.btn_in_form {
-}
-// Меню
-
-.menu {
-  height: 80px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.menu_nav {
-  color: $color-sand;
-  font-weight: 700;
-  margin-left: 20px;
-  padding-bottom: 3px;
-}
-.menu_nav:hover {
-  border-bottom: 2px solid $color-sand;
-}
-.menu_nav:active {
-  border-bottom: 2px solid $text-grey;
-  color: $text-grey;
-}
-h4 {
-  color: $text-grey;
-}
-
-
-// Форма
-
-.article {
-  margin-bottom: 30px;
-}
 input {
   line-height: 20px;
   padding-left: 7px;
@@ -102,16 +53,33 @@ input:focus {
   background: #e4f5ff;
 }
 
-.input {
+.input-field {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 25px;
+  //margin-bottom: 25px;
+
+  &__label_lief {
+    margin: 5px 10px 5px 0;
+  }
+
+  &__input {
+    width: 170px;
+    padding: 3px 7px;
+    &__str {
+      width: 140px;
+    }
+    &__no {
+      width: 53px;
+    }
+  }
+
+  &__errors {
+    height: 25px;
+    color: red;
+  }
+
 }
-.input_text {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 25px;
-}
+
 .input_before_btn {
   margin-top: 25px;
 }
@@ -140,147 +108,30 @@ input:focus {
   }
 }
 
-// Lieferant anlegen
 
-.lieferant-anlegen {
-  margin-top: 30px;
-}
-.label_lief {
-  margin: 5px 10px 5px 0;
 
-}
-.lief_abs {
-  margin-left: 10px;
-}
-.input_width {
-  width: 170px;
-  padding: 3px 7px;
-  &__str {
-    width: 140px;
-  }
-  &__no {
-    width: 53px;
-  }
-}
-#textarea, input {
-  font-family: 'Comfortaa', cursive;
+// Кнопки
+
+.btn-login {
+  background-color: $color-sand;
+  color: $text-grey;
   font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.38px;
+  padding: 13px 19px;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 1s;
 }
-
-
-// Checkbox yes/no
-
-// USt List
-option {
-  color: black;
-}
-// Продукты на главной
-
-.products {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-}
-.products_main {
-  display: flex;
-  justify-content: space-between;
-}
-.prod {
-  height: 100%;
-  padding: 10px;
-  font-size: 20px;
-  margin-top: 50px;
-  display: flex;
-  flex-direction: column;
-  flex-wrap: wrap;
-}
-.form_product {
-  display: flex;
-  flex-flow: row wrap;
-  margin-bottom: 100px;
-}
-.prod_top {
-  font-size: 28px;
-  margin-bottom: 10px;
-  margin-top: 25px;
-  color: $text-grey;
-}
-.prod_a {
-  color: darkblue;
-}
-.prod_p {
-  margin-top: 20px;
-  margin-bottom: 20px;
-}
-li {
-  margin: 5px;
-}
-.more {
-  color: darkblue;
-  padding-top: 20px;
-}
-
-// tab menu
-
-.tab_menu {
-  padding : 20px;
-  cursor: pointer;
-  display: grid;
-  grid-template: 100% /1fr 2.2fr;
-}
-.tab_name {
-  font-size: 30px;
-  color: $text-grey;
-  width: 70px;
-}
-.tab {
-  display: grid;
-  grid-template: 1fr 1fr 1fr/ 1fr 1fr;
-  grid-gap: 40px;
-}
-.tab_el {
-}
-
-.icon {
-  width: 50px;
-  height:50px;
-  margin-bottom: -4px;
-}
-// Футер
-
-.footer_grey {
-  background-color: #e6e6e6;
-  height: 79px;
-  margin-top: 40px;
-  display: flex;
-}
-.footer_box {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-}
-.social {
-  display: flex;
-}
-.social_f {
-  width: 26px;
-  height: 26px;
-  background-color: #ffffff;
-  border: 1px solid  #ffffff;
-  border-radius: 50%;
-  margin-right: 8px;
-  padding: 5px;
-  font-size: 20px;
-  color: $text-grey;
-  text-align: center;
-}
-.social_f:hover {
+.btn-login:hover {
   background-color: $color-social;
-  border: 1px solid $color-social;
 }
-.social_f:active {
-  background-color: #eeeeee;
-  border: 1px solid #eeeeee;
+.btn-login:active {
+  background-color: white;
   color: $color-social;
+}
+.btn_form {
+  margin-right: 20px;
+  margin-top: 20px;
+  align-self: flex-end;
 }

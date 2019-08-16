@@ -1,0 +1,31 @@
+{% use 'form_div_layout.html.twig' %}
+
+{% block form_row %}
+
+    <label class="input-field">
+        <span class="input-field__label_lief">
+            {%- if translation_domain is same as(false) -%}
+                {{- label -}}
+            {%- else -%}
+                {{- label|trans(label_translation_parameters, translation_domain) -}}
+            {%- endif -%}
+
+        </span>
+        {%- set type = type|default('text') -%}
+        {%- if type == 'range' or type == 'color' -%}
+            {# Attribute "required" is not supported #}
+            {%- set required = false -%}
+        {%- endif -%}
+        <input class="input-field__input"
+               type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+    </label>
+
+    <div class="input-field__errors">
+        {%- if errors|length > 0 -%}
+            {%- for error in errors -%}
+                <span>{{ error.message }}</span>
+            {%- endfor -%}
+        {%- endif -%}
+    </div>
+
+{% endblock %}

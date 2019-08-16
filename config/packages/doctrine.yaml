@@ -12,6 +12,8 @@ doctrine:
 
         types:
             contractor_contractor_id: 'App\Model\Contractor\Entity\Contractor\IdType'
+            contractor_creditor_id: 'App\Model\Contractor\Entity\Creditor\IdType'
+            contractor_creditor: 'App\Model\Contractor\Entity\Creditor\CreditorType'
 
     orm:
         auto_generate_proxy_classes: true

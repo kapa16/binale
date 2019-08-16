@@ -27,14 +27,14 @@ class Handler
 
     public function handle(Command $command)
     {
-        if ($this->contractors->findByFullName($command->name1, $command->name2)) {
+        if ($this->contractors->findByFullName($command->nameOne, $command->nameTwo)) {
             throw new \DomainException('Contractor already exist.');
         }
 
         $contractor = new Contractor(
             Id::next(),
-            $command->name1,
-            $command->name2
+            $command->nameOne,
+            $command->nameTwo
         );
 
         $this->contractors->add($contractor);
