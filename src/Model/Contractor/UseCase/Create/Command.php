@@ -39,5 +39,12 @@ class Command
      * @Assert\Positive()
      */
     public $creditorNumber;
-    
+
+    /**
+     * @Assert\Length(
+     *     min="2",
+     *     max="60"
+     * )
+     */
+    public $creditorName;
 }

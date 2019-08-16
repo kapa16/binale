@@ -13,12 +13,12 @@ class CreditorType extends StringType
 
     public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
-        return $value instanceof Role ? $value->getName() : $value;
+        return $value instanceof Creditor ? $value->getName() : $value;
     }
 
     public function convertToPHPValue($value, AbstractPlatform $platform)
     {
-        return !empty($value) ? new Role($value) : null;
+        return !empty($value) ? new Creditor($value) : null;
     }
 
     public function getName(): string

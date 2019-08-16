@@ -29,6 +29,9 @@ class Form extends AbstractType
             ->add('nameTwo', TextType::class, ['label'=> 'Name 2'])
             ->add('creditorNumber', TextType::class, [
                 'label'=> $this->translator->trans('creditorNumber', [], 'labels')
+            ])
+            ->add('creditorName', TextType::class, [
+                'label'=> $this->translator->trans('creditorName', [], 'labels')
             ]);
     }
 
