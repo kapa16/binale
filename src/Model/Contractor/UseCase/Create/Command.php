@@ -32,6 +32,8 @@ class Command
      */
     public $number;
 
+    public $creditor;
+
     /**
      * @Assert\Length(
     *     max="10"

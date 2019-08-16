@@ -7,6 +7,7 @@ namespace App\Model\Contractor\UseCase\Create;
 use App\Model\Contractor\Entity\Contractor\Contractor;
 use App\Model\Contractor\Entity\Contractor\ContractorRepository;
 use App\Model\Contractor\Entity\Contractor\Id;
+use App\Model\Contractor\Entity\Creditor\Creditor;
 use App\Model\Flusher;
 
 class Handler
@@ -31,10 +32,14 @@ class Handler
             throw new \DomainException('Contractor already exist.');
         }
 
+        $creditor = new Creditor();
+
         $contractor = new Contractor(
             Id::next(),
             $command->nameOne,
-            $command->nameTwo
+            $command->nameTwo,
+            $command->number,
+            $creditor
         );
 
         $this->contractors->add($contractor);

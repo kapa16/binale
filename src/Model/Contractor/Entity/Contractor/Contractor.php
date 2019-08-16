@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\Contractor\Entity\Contractor;
 
+use App\Model\Contractor\Entity\Creditor\Creditor;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -39,21 +40,20 @@ class Contractor
     private $number;
 
     /**
-     * @ORM\Column(type="contractor_creditor")
+     * @ORM\ManyToOne(
+     *     targetEntity="App\Model\Contractor\Entity\Creditor\Creditor",
+     *     inversedBy="contractors")
+     * @ORM\JoinColumn(name="creditor_id", referencedColumnName="id", nullable=true)
      */
     private $creditor;
 
-    /**
-     * Contractor constructor.
-     * @param $id
-     * @param string $nameOne
-     * @param string|null $nameTwo
-     */
-    public function __construct(Id $id, string $nameOne, ?string $nameTwo)
+    public function __construct(Id $id, string $nameOne, ?string $nameTwo, string $number, Creditor $creditor)
     {
         $this->id = $id;
         $this->nameOne = $nameOne;
         $this->nameTwo = $nameTwo;
+        $this->number = $number;
+        $this->creditor = $creditor;
     }
 
 
