@@ -27,7 +27,7 @@ class CreditorFetcher
             ->orderBy('name')
             ->execute();
 
-        return $stmt->fetchAll( \Doctrine\DBAL\FetchMode::ASSOCIATIVE);
+        return $stmt->fetchAll( \PDO::FETCH_KEY_PAIR);
 
     }
 }

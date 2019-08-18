@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Model\Contractor\Entity\Creditor;
 
 use App\Model\Contractor\Entity\Contractor\Contractor;
+use App\Model\Contractor\Entity\Contractor\Id;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -42,9 +43,29 @@ class Creditor
      */
     private $contractors;
 
+    /**
+     * Creditor constructor.
+     * @param $id
+     * @param string $name
+     * @param string|null $number
+     */
+    public function __construct(Id $id, string $name, ?string $number)
+    {
+        $this->id = $id;
+        $this->name = $name;
+        $this->number = $number;
+    }
+
+
     public function getContractors()
     {
         return $this->contractors->toArray();
     }
+
+    public function __toString()
+    {
+        return $this->name;
+    }
+
 
 }

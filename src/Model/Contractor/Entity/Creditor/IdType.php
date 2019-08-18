@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Model\Contractor\Entity\Creditor;
 
+use App\Model\Contractor\Entity\Contractor\Id;
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\GuidType;
 

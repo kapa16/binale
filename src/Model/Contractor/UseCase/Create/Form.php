@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace App\Model\Contractor\UseCase\Create;
 
+use App\Model\Contractor\Entity\Creditor\Creditor;
 use App\Model\ReadModel\Creditor\CreditorFetcher;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -25,20 +27,22 @@ class Form extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        dump(array_flip($this->creditors->List()));
         $builder
             ->add('number', TextType::class, [
-                'label'=> $this->translator->trans('contractorNumber', [], 'labels')
+                'label' => $this->translator->trans('contractorNumber', [], 'labels')
             ])
-            ->add('nameOne', TextType::class, ['label'=> 'Name 1'])
-            ->add('nameTwo', TextType::class, ['label'=> 'Name 2'])
-            ->add('creditor', ChoiceType::class, [
-                'choices' => array_flip($this->creditors->List())
+            ->add('nameOne', TextType::class, ['label' => 'Name 1'])
+            ->add('nameTwo', TextType::class, ['label' => 'Name 2'])
+            ->add('creditor', EntityType::class, [
+//                'choices' => array_flip($this->creditors->List())
+                'class' => Creditor::class
             ])
             ->add('creditorNumber', TextType::class, [
-                'label'=> $this->translator->trans('creditorNumber', [], 'labels')
+                'label' => $this->translator->trans('creditorNumber', [], 'labels')
             ])
             ->add('creditorName', TextType::class, [
-                'label'=> $this->translator->trans('creditorName', [], 'labels')
+                'label' => $this->translator->trans('creditorName', [], 'labels')
             ]);
     }
 
@@ -48,7 +52,7 @@ class Form extends AbstractType
             'data_class' => Command::class,
             'csrf_protection' => true,
             'csrf_field_name' => '_token',
-            'csrf_token_id'   => 'contractor_item',
+            'csrf_token_id' => 'contractor_item',
 
         ]);
     }
